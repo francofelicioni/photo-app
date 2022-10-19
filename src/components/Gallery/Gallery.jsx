@@ -12,23 +12,23 @@ import DeleteIcon from '@mui/icons-material/Delete';
 // import { getPhotos } from "../../features/tasks/taskSlice";
 
 const Gallery = () => {
-  const [value, setValue] = useState("");
   const [gallery, setGallery] = useState([]);
-
   const savedPhotos = JSON.parse(localStorage.getItem('collection'));
 
-  if (savedPhotos != null && savedPhotos != undefined) {
-    setGallery (savedPhotos);
+  const getFromStorage = () => {
+    return localStorage.getItem('collection') ? JSON.parse(localStorage.getItem('collection')) : []
   }
-  console.log (gallery);
 
-  const handlerDelete = (photo, id)=> {
-    console.log (savedPhotos);
-    // console.log(id);
-    savedPhotos.splice(id, 1)  
-  }
+  const favourites = getFromStorage();
   
-  console.log ('gallery', gallery);
+
+  // const handlerDelete = (photo, id)=> {
+  //   console.log (savedPhotos);
+  //   // console.log(id);
+  //   savedPhotos.splice(id, 1)  
+  // }
+  
+
   return (
     <>
       <div className="searchBar">
@@ -52,15 +52,15 @@ const Gallery = () => {
       <div className="main-content">
         <div className="main-content__grid">
           {
-          gallery.map((photo, index) => {
+          favourites.map((photo, index) => {
               return (
-                <div className="grid-img-container">
-                  <img className='grid-img' key={index} src={photo.links} alt="Photo from Unsplash" />
+                <div className="grid-img-container" key={index}>
+                  <img className='grid-img' src={photo.links} alt="Photo from Unsplash" />
                   <div className="grid-img__info-icon">
                     <p>{photo.description} </p>
                     <DeleteIcon
                       style={{ color: "FFFFFF" }}
-                      onClick = {()=>handlerDelete(photo,index)}
+                      // onClick = {()=>handlerDelete(photo,index)}
                     />
                   </div>
                 </div>

@@ -6,11 +6,13 @@ import { Link } from "react-router-dom";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import SearchIcon from "@mui/icons-material/Search";
 
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const Explorer = () => {
   const [value, setValue] = useState("");
   const [result, setResult] = useState([]);
+  // const [initialHearth, setInitialHearth] = ({FavoriteBorderIcon});
   const savedPhotos = [];
 
   const searchResults = async () => {
@@ -19,25 +21,23 @@ const Explorer = () => {
     const URL = `https://api.unsplash.com/search/photos/?client_id=${API_KEY}&query=${value}&per_page=21`;
     const URL_RANDOM = `https://api.unsplash.com/photos/random/?client_id=${API_KEY}&count=21`;
 
-    if (value.length === 0)  {
-      const response = await fetch(URL_RANDOM);
-      const data = await response.json();
-      setResult(data);
-    } else {
+
+    if (value && value !== '')  {
       const response = await fetch(URL) ;
       const data = await response.json();
       setResult(data.results);
+    } else {
+      const response = await fetch(URL_RANDOM);
+      const data = await response.json();
+      setResult(data);
     }
   };
-
-
-  console.log(result)
 
   const handlerSave = (data) => {
   
     const dataToSave = {
       id: data.id,
-      description: data.alt_description,
+      description: data.description,
       likes:data.likes,
       links:data.links.download,
       height:data.height,
@@ -62,7 +62,7 @@ const Explorer = () => {
             className="search-container__input"
             type="text"
             placeholder="Search anything"
-            onChange={(e) => setValue(e.target.value)}
+            onKeyUp={(e) => setValue(e.target.value)}
           />
         </div>
         <Link to="/my_photos">
