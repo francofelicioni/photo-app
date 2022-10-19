@@ -1,6 +1,6 @@
 import "./Explorer.css";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import CollectionsIcon from "@mui/icons-material/Collections";
@@ -12,6 +12,11 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 const Explorer = () => {
   const [value, setValue] = useState("");
   const [result, setResult] = useState([]);
+
+  useEffect(()=> {
+    searchResults();
+  },[]);
+
   // const [initialHearth, setInitialHearth] = ({FavoriteBorderIcon});
   const savedPhotos = [];
 
@@ -77,8 +82,8 @@ const Explorer = () => {
           {
           result.map((photo, index) => {
             return (
-              <div className="grid-img-container">
-                <img className='grid-img' key={index} src={photo.urls.regular} alt="Photo from Unsplash" />
+              <div key={index} className="grid-img-container" >
+                <img className='grid-img'  src={photo.urls.regular} alt="Photo from Unsplash" />
                 <div className="grid-img__info-icon">
                   <p>{photo.alt_description ? photo.alt_description : photo.description} </p>
                   <FavoriteBorderIcon
