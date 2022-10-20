@@ -3,6 +3,9 @@ import "./Explorer.css";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+import { useDispatch, useSelector } from "react-redux";
+import { addFavourite } from "../../features/favourite/favouriteSlice";
+
 import CollectionsIcon from "@mui/icons-material/Collections";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -12,19 +15,20 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 const Explorer = () => {
   const [value, setValue] = useState("");
   const [result, setResult] = useState([]);
+  const [icon, setIcon] = useState('');
+
+  const dispatch = useDispatch();
 
   useEffect(()=> {
     searchResults();
   },[]);
 
-  // const [initialHearth, setInitialHearth] = ({FavoriteBorderIcon});
   const savedPhotos = [];
 
   const searchResults = async () => {
     const API_KEY = "f3_j5xaaagLteInPGf7sUqRFgJc8ulftP1UGe1ulBi0";
-
-    const URL = `https://api.unsplash.com/search/photos/?client_id=${API_KEY}&query=${value}&per_page=21`;
-    const URL_RANDOM = `https://api.unsplash.com/photos/random/?client_id=${API_KEY}&count=21`;
+    const URL = `https://api.unsplash.com/search/photos/?client_id=${API_KEY}&query=${value}&per_page=12`;
+    const URL_RANDOM = `https://api.unsplash.com/photos/random/?client_id=${API_KEY}&count=12`;
 
 
     if (value && value !== '')  {
@@ -37,22 +41,27 @@ const Explorer = () => {
       setResult(data);
     }
   };
-
-  const handlerSave = (data) => {
   
+  console.log(result);
+
+  const handleSave = (data) => {
+  
+    // console.log(data);
     const dataToSave = {
       id: data.id,
       description: data.description,
+      downloads: data.downloads,
       likes:data.likes,
       links:data.links.download,
       height:data.height,
+      img: data.urls.regular,
       width: data.width
     }
 
+    dispatch(addFavourite (dataToSave));
     savedPhotos.push (dataToSave)
     localStorage.setItem('collection', JSON.stringify(savedPhotos))
   }
-
 
   return (
     <>
@@ -86,9 +95,9 @@ const Explorer = () => {
                 <img className='grid-img'  src={photo.urls.regular} alt="Photo from Unsplash" />
                 <div className="grid-img__info-icon">
                   <p>{photo.alt_description ? photo.alt_description : photo.description} </p>
-                  <FavoriteBorderIcon
-                    style={{ color: "FFFFFF" }}
-                    onClick = {()=>handlerSave(photo, index)}
+                  <FavoriteIcon
+                    style={{ color: "FFFFFF", cursor: 'pointer' }}
+                    onClick = {()=>handleSave(photo, index)}
                   />
                 </div>
               </div>

@@ -1,7 +1,7 @@
 .searchBar {
     margin: .5rem auto;
-    width: 90%;
-    height: 150px;
+    width: 88%;
+    height: 45px;
     background: #FFFFFF;
     border: 1px solid #000000;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -23,15 +23,17 @@ h2 {
     justify-content: space-between;
     align-items: center;
     width: 250px;
-    height: 30px;
+    height: 32px;
     border-radius: 50px;
     padding: 0 1.5rem;
+    gap: 1rem;
 }
 
 .search-container__input {
     background: none;
     border: transparent;
     color: black;
+    font-size: 1rem;
 }
 
 .main-content {
