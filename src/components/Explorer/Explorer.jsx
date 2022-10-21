@@ -4,7 +4,10 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
+import { searchRedcuer } from "../../features/search/searchSlice";
 import { addFavourite } from "../../features/favourite/favouriteSlice";
+import { getPhotos } from "../../features/search/searchSlice";
+import { selectPhotos } from "../../features/search/searchSlice";
 
 import CollectionsIcon from "@mui/icons-material/Collections";
 import SearchIcon from "@mui/icons-material/Search";
@@ -14,39 +17,17 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const Explorer = () => {
   const [value, setValue] = useState("");
-  const [result, setResult] = useState([]);
-  const [icon, setIcon] = useState('');
-
   const dispatch = useDispatch();
+  const photoDataResult = useSelector(selectPhotos);
 
-  useEffect(()=> {
-    searchResults();
-  },[]);
+  useEffect (()=> {
+    dispatch(getPhotos({value: value}));
+  }, [value, dispatch])
 
   const savedPhotos = [];
-
-  const searchResults = async () => {
-    const API_KEY = "f3_j5xaaagLteInPGf7sUqRFgJc8ulftP1UGe1ulBi0";
-    const URL = `https://api.unsplash.com/search/photos/?client_id=${API_KEY}&query=${value}&per_page=12`;
-    const URL_RANDOM = `https://api.unsplash.com/photos/random/?client_id=${API_KEY}&count=12`;
-
-
-    if (value && value !== '')  {
-      const response = await fetch(URL) ;
-      const data = await response.json();
-      setResult(data.results);
-    } else {
-      const response = await fetch(URL_RANDOM);
-      const data = await response.json();
-      setResult(data);
-    }
-  };
   
-  console.log(result);
-
   const handleSave = (data) => {
-  
-    // console.log(data);
+
     const dataToSave = {
       id: data.id,
       description: data.description,
@@ -70,7 +51,7 @@ const Explorer = () => {
         <div className="search-container">
           <SearchIcon
             style={{ color: "77AD78" }}
-            onClick={() => searchResults()}
+            // onClick={() => searchResults()}
           />
           <input
             className="search-container__input"
@@ -89,7 +70,7 @@ const Explorer = () => {
       <div className="main-content">
         <div className="main-content__grid">
           {
-          result.map((photo, index) => {
+          photoDataResult.map((photo, index) => {
             return (
               <div key={index} className="grid-img-container" >
                 <img className='grid-img'  src={photo.urls.regular} alt="Photo from Unsplash" />

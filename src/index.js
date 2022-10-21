@@ -4,10 +4,12 @@ import './index.css';
 import App from './App';
 
 
+// Router DOM
+import { BrowserRouter } from 'react-router-dom';
+
 //Redux
 import { Provider } from 'react-redux';
 import { store } from './app/store' 
-import { BrowserRouter } from 'react-router-dom';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
