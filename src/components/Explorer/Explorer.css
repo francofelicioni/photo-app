@@ -37,6 +37,7 @@ h2 {
 }
 
 .main-content {
+    /* min-height: 100vh; */
     width: 90%;
     padding: 1rem 0 2rem 0;
     margin: auto;

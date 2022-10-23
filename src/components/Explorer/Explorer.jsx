@@ -27,7 +27,6 @@ const Explorer = () => {
   const savedPhotos = [];
   
   const handleSave = (data) => {
-
     const dataToSave = {
       id: data.id,
       description: data.description,
@@ -40,8 +39,6 @@ const Explorer = () => {
     }
 
     dispatch(addFavourite (dataToSave));
-    savedPhotos.push (dataToSave)
-    localStorage.setItem('collection', JSON.stringify(savedPhotos))
   }
 
   return (

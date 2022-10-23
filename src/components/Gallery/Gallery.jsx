@@ -3,76 +3,63 @@ import "./Gallery.css";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+//Icons from MUI
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 import SearchIcon from "@mui/icons-material/Search";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import InfoIcon from '@mui/icons-material/Info';
 
+
+//Redux
 import { useDispatch, useSelector } from "react-redux";
-import { deleteFavourite } from "../../features/favourite/favouriteSlice";
+import { deleteFavourite, editDescription } from "../../features/favourite/favouriteSlice";
+import { favouritesPhotos } from "../../features/favourite/favouriteSlice";
 import ModalComponent from "../Modal/Modal";
-// import { getPhotos } from "../../features/tasks/taskSlice";
+
 
 const Gallery = () => {
-  const [gallery, setGallery] = useState([]);
-  const savedPhotos = JSON.parse(localStorage.getItem("collection"));
-  const initialState = useSelector((state) => state.favourite);
-  console.log("initial state", initialState);
-
+  const [modal, setModal] = useState (false);
+  // const [infoClicked, setInfoClicked] = useState('hide');
+  // const favourites = useSelector (favouritesPhotos);
+  const favourites = useSelector((state) => state.favourite);
+  console.log("initial state", favourites);
+  
   const dispatch = useDispatch();
-
-  const getFromStorage = () => {
-    return localStorage.getItem("collection")
-      ? JSON.parse(localStorage.getItem("collection"))
-      : [];
-  };
-
-  const favourites = getFromStorage();
-  console.log(favourites);
-
+  
   const handleDelete = (photo, id) => {
-    console.log("id desde dato", photo.id);
     dispatch(deleteFavourite(photo.id));
-    favourites.splice(id, 1);
-    console.log(favourites);
-    localStorage.setItem("collection", JSON.stringify(favourites));
+    // favourites.splice(id, 1);
+    // localStorage.setItem("collection", JSON.stringify(favourites));
   };
+  
 
-  // const handleClick = () => {
-  //   <ModalComponent />
-  // }
+  const handleEdit = (photo) => {
+    // console.log (photo)
+    // console.log (id)
 
+    dispatch (editDescription())
+    // dispatch (editDescription({id: photo.id, change:'cambio'}))
+    // console.log (photo.id)
+  }
 
+  const handleInfo = (photo, id) => {
+    // info-icon.classList.toggle('active')
+  }
 
-  // const renderPhotos = (array) => {
-  //   console.log('desde render', array);
-  //   array.map((photo, index) => {
-  //     return (
-  //       <div className="grid-img-container" key={index}>
-  //         <img className='grid-img' src={photo.img} alt="Photo from Unsplash" />
-  //         <div className="grid-img__info-icon">
-  //           <p>{photo.description} </p>
-  //           <DeleteIcon
-  //             style={{ color: "FFFFFF" , cursor: 'pointer'}}
-  //             onClick = {()=>handleDelete(photo,index)}
-  //           />
-  //         </div>
-  //       </div>
-  //     )
-  //   })
-  // }
+  const handleChange = ()=> {
+    // if (option.value ==='date') {  
+    //   console.log('bydate')
+    // }
+  }
 
-  // useEffect (()=> {
-  //   renderPhotos(favourites);
-  // },[favourites])
-
+ 
   return (
     <>
-      <ModalComponent />
       <div className="searchBar">
         <div className="searchBar__h2-select">
           <h2>My Gallery</h2>
-          <select className="select" defaultValue={"date"}>
+          <select className="select" defaultValue={"date"} onChange={()=> handleChange()}>
             <option value="date">By date</option>
             <option value="width">By width</option>
             <option value="height">By height</option>
@@ -97,31 +84,51 @@ const Gallery = () => {
         </Link>
       </div>
       <div className="main-content">
+      {/* <ModalComponent prop={false}/> */}
         <div className="main-content__grid">
           {
-            favourites.map((photo, index) => {
-              return (
-                <div className="grid-img-container" key={index}>
-                  <img
-                    className="grid-img"
-                    src={photo.img}
-                    alt="Photo from Unsplash"
-                  />
-                  <div className="grid-img__info-icon">
-                    <EditIcon
+            (favourites) && (favourites.length > 0) ? 
+              // {
+              favourites.map((photo, index) => {
+                return (
+                  <div className="grid-img-container" key={index}>
+                    {/* <InfoIcon 
+                      className='info-icon'
                       style={{ color: "FFFFFF", cursor: "pointer" }}
-                      // onClick={() => handleClick()}
+                      onClick={() => handleInfo(photo, index)}
+                    /> */}
+                    <img
+                      className="grid-img"
+                      src={photo.img}
+                      alt="Photo from Unsplash"
                     />
-                    <p>{photo.description} </p>
-                    <DeleteIcon
-                      style={{ color: "FFFFFF", cursor: "pointer" }}
-                      onClick={() => handleDelete(photo, index)}
-                    />
+                    <div className="img-info">
+                      <h3>- Photo information -</h3>
+                      <p>🏷️ Full description: {photo.description}</p>
+                      <p>📏 Width: {photo.width}px / Heigth: {photo.height}px</p>
+                      <p>❤️ Likes: {photo.likes}</p>
+                      <p>📅 Date saved</p>
+                      <p><a href={photo.links} download='phgrm.png'>⬇️ Download photo </a></p>
+                      <button className="closeBtn">CLOSE ✖️</button>
+                    </div>
+                    <div className="grid-img__info-icon">
+                      <EditIcon
+                        style={{ color: "FFFFFF", cursor: "pointer" }}
+                        onClick={() => handleEdit(photo, index)}
+                      />
+                      <p>{photo.description} </p>
+                      <DeleteIcon
+                        style={{ color: "FFFFFF", cursor: "pointer" }}
+                        onClick={() => handleDelete(photo, index)}
+                      />
+                    </div>
                   </div>
-                </div>
-              );
-            })
-            // renderPhotos (favourites)
+                );
+              })
+              :
+              <div> 
+                <h3 style={{ fontSize: '1.8rem', color: "77AD78", padding: '2rem 0' }}>No photos in gallery! ☹️</h3>
+              </div>
           }
         </div>
       </div>
