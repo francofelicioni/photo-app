@@ -11,17 +11,65 @@ import SearchIcon from "@mui/icons-material/Search";
 
 //Redux
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 const Gallery = () => {
- 
+  const [gallery, setGallery] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [orderBy, setOrderBy] = useState("");
   const favourites = useSelector((state) => state.favourite);
-  console.log("initial state", favourites);
 
-  const handleChange = () => {
-    // if (option.value ==='date') {
-    //   console.log('bydate')
-    // }
+  console.log("favourites", favourites);
+  console.log("gallery", gallery);
+
+  useEffect(() => {
+    setGallery(favourites);
+  }, [favourites]);
+
+  const handleSelect = (e) => {
+    if (e.target.value === "date") {
+      setOrderBy("date");
+    } else if (e.target.value === "width") {
+      setOrderBy("width");
+    } else if (e.target.value === "height") {
+      setOrderBy("height");
+    } else if (e.target.value === "likes") {
+      setOrderBy("likes");
+    }
   };
+
+  useEffect(() => {
+    let filteredPhotos;
+    if (searchTerm.length) {
+      filteredPhotos = favourites.filter(
+        (p) =>
+          p.description &&
+          p.description.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    } else {
+      filteredPhotos = favourites;
+    }
+    console.log(filteredPhotos);
+    const arrOrderedPhotos = [...filteredPhotos];
+
+    switch (orderBy) {
+      case "width":
+        arrOrderedPhotos.sort((a, b) => a.width - b.width);
+        break;
+      case "height":
+        arrOrderedPhotos.sort((a, b) => a.height - b.height);
+        break;
+      case "likes":
+        arrOrderedPhotos.sort((a, b) => a.likes - b.likes);
+        break;
+      case "date":
+        arrOrderedPhotos.sort((a, b) => a.date - b.date);
+      break;
+      default:
+      break;
+    }
+    setGallery(arrOrderedPhotos);
+  }, [searchTerm, orderBy, favourites]);
 
   return (
     <>
@@ -31,7 +79,7 @@ const Gallery = () => {
           <select
             className="select"
             defaultValue={"date"}
-            onChange={() => handleChange()}
+            onChange={handleSelect}
           >
             <option value="date">By date</option>
             <option value="width">By width</option>
@@ -46,6 +94,7 @@ const Gallery = () => {
               className="search-input"
               type="text"
               placeholder="Search by descrptions"
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
         </div>
@@ -58,12 +107,12 @@ const Gallery = () => {
       </div>
       <div className="main-content">
         <div className="main-content__grid">
-          {favourites && favourites.length ? (
-            favourites.map((photo, index) => (
-              <Card photo={photo} callFrom='gallery' key={index}/>
+          {gallery && gallery.length ? (
+            gallery.map((photo, index) => (
+              <Card photo={photo} callFrom="gallery" key={index} />
             ))
           ) : (
-            <h2>✖️ No photos in favourites </h2>
+            <h2>No photos in favourites yet</h2>
           )}
         </div>
       </div>

@@ -6,8 +6,6 @@ import { Link } from "react-router-dom";
 
 //Redux
 import { useDispatch, useSelector } from "react-redux";
-import { searchReducer } from "../../features/search/searchSlice";
-import { addFavourite } from "../../features/favourite/favouriteSlice";
 import { getPhotos } from "../../features/search/searchSlice";
 import { selectPhotos } from "../../features/search/searchSlice";
 
@@ -28,24 +26,7 @@ const Explorer = () => {
   useEffect (()=> {
     dispatch(getPhotos({value: value}));
   }, [value, dispatch])
-
-  const savedPhotos = [];
   
-  const handleSave = (data) => {
-    const dataToSave = {
-      id: data.id,
-      description: data.description,
-      downloads: data.downloads,
-      likes:data.likes,
-      links:data.links.download,
-      height:data.height,
-      img: data.urls.regular,
-      width: data.width
-    }
-
-    dispatch(addFavourite (dataToSave));
-  }
-
   return (
     <>
       <div className="searchBar">
@@ -73,10 +54,10 @@ const Explorer = () => {
         <div className="main-content__grid">
           {photoDataResult && photoDataResult.length ? (
              photoDataResult.map((photo, index) => (
-              <Card photo={photo} callFrom='explorer' key={index}/>
+              <Card photo={photo} callFrom='explorer' key={index} dateImported={new Date().getTime()}/>
              ))
           ) : (
-            <h2>❌ 404: No photos to show </h2>
+            <h2>🖼️ Loading... </h2>
           )}
         </div>
       </div>

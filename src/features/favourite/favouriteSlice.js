@@ -1,12 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// const initialState = [];
-
-// const initialState = {
-//   localStore: localStorage.getItem("collection") ? JSON.parse(localStorage.getItem("collection")) : [],
-//   favourites: [],
-// }
-
 const initialState = localStorage.getItem("collection")
   ? JSON.parse(localStorage.getItem("collection"))
   : [];
@@ -27,7 +20,7 @@ export const favouriteSlice = createSlice({
     },
     editDescription: (state, action) => {
       const copyStatePhotos = [...state];
-      console.log('id', action.payload);
+      console.log('id', action);
       console.log("copy", copyStatePhotos);
       const editIndex = copyStatePhotos.findIndex(
         (photo) => photo.id === action.payload.id
@@ -37,7 +30,7 @@ export const favouriteSlice = createSlice({
               ...copyStatePhotos[editIndex],
               description: action.payload.change,
       };
-      console.log('newphoto',newPhoto )
+      console.log('newphoto', newPhoto )
       copyStatePhotos[editIndex] = newPhoto;
       state = copyStatePhotos;
       console.log('nuevo estado', state);
@@ -50,4 +43,3 @@ export const favouriteSlice = createSlice({
 export default favouriteSlice.reducer;
 export const { addFavourite, deleteFavourite, editDescription } =
   favouriteSlice.actions;
-// export const favouritesPhotos = (state) => state.favourites.photos;

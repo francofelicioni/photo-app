@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Card.css";
 
 //Icons from MUI
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import InfoIcon from "@mui/icons-material/Info";
 
 //Redux
 import { useDispatch } from "react-redux";
@@ -13,13 +14,12 @@ import {
   deleteFavourite,
   // editDescription,
 } from "../../features/favourite/favouriteSlice";
+import Modal from "../Modal/Modal";
 
 const Card = (photo) => {
   const dispatch = useDispatch();
 
-  // const handleEdit = (photo) => {
-  //   dispatch(editDescription());
-  // };
+  const [openModal, setOpenModal] = useState(false);
 
   const handleSave = (data) => {
     console.log("data", data);
@@ -32,18 +32,17 @@ const Card = (photo) => {
       height: data.photo.height,
       img: data.photo.urls.regular,
       width: data.photo.width,
+      dateImported: new Date(data.dateImported).toLocaleDateString("es"),
     };
     dispatch(addFavourite(dataToSave));
+    console.log("dataToSave", dataToSave);
   };
 
   const handleDelete = (photo) => {
     dispatch(deleteFavourite(photo.photo.id));
   };
 
-  const handleEdit = (photo) => {
-    console.log(photo);
-  };
-
+  //Gallery Render
   if (photo.callFrom === "gallery") {
     return (
       <>
@@ -53,10 +52,10 @@ const Card = (photo) => {
             src={photo.photo.img}
             alt="Img from Unsplash"
           />
-          <div className="grid-img__info-icon">
-            <EditIcon
+          <div className="grid-img__icons">
+            <InfoIcon
               style={{ color: "FFFFFF", cursor: "pointer" }}
-              onClick={() => handleEdit(photo, photo.photo.id)}
+              onClick={() => setOpenModal(true)}
             />
             <p>{photo.photo.description} </p>
             <DeleteIcon
@@ -65,9 +64,11 @@ const Card = (photo) => {
             />
           </div>
         </div>
+        {openModal && <Modal photo={photo} downloadLink={photo.photo.links} closeModal={setOpenModal} />}
       </>
     );
   } else {
+  //Explorer Render
     return (
       <>
         <div className="grid-img-container" key={photo.photo.id}>

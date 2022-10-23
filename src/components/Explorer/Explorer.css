@@ -30,8 +30,8 @@ h2 {
 }
 
 .search-container__input {
+    width: 90%;
     background: none;
-    border: transparent;
     color: black;
     font-size: 1rem;
 }
