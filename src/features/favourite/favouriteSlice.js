@@ -24,8 +24,6 @@ export const favouriteSlice = createSlice({
       const newState = state.filter((item) => action.payload != item.id);
       localStorage.setItem("collection", JSON.stringify(newState));
       return newState;
-      // console.log('estado tal cual', state);
-      // console.log('estado nuevo', newState);
     },
     editDescription: (state, action) => {
       const copyStatePhotos = [...state];

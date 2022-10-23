@@ -3,17 +3,22 @@ import "./Explorer.css";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+
+//Redux
 import { useDispatch, useSelector } from "react-redux";
-import { searchRedcuer } from "../../features/search/searchSlice";
+import { searchReducer } from "../../features/search/searchSlice";
 import { addFavourite } from "../../features/favourite/favouriteSlice";
 import { getPhotos } from "../../features/search/searchSlice";
 import { selectPhotos } from "../../features/search/searchSlice";
 
+
+//Import from MUI
 import CollectionsIcon from "@mui/icons-material/Collections";
 import SearchIcon from "@mui/icons-material/Search";
 
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+
+//Components
+import Card from "../Card/Card";
 
 const Explorer = () => {
   const [value, setValue] = useState("");
@@ -66,22 +71,13 @@ const Explorer = () => {
       </div>
       <div className="main-content">
         <div className="main-content__grid">
-          {
-          photoDataResult.map((photo, index) => {
-            return (
-              <div key={index} className="grid-img-container" >
-                <img className='grid-img'  src={photo.urls.regular} alt="Photo from Unsplash" />
-                <div className="grid-img__info-icon">
-                  <p>{photo.alt_description ? photo.alt_description : photo.description} </p>
-                  <FavoriteIcon
-                    style={{ color: "FFFFFF", cursor: 'pointer' }}
-                    onClick = {()=>handleSave(photo, index)}
-                  />
-                </div>
-              </div>
-            )
-          })
-          }
+          {photoDataResult && photoDataResult.length ? (
+             photoDataResult.map((photo, index) => (
+              <Card photo={photo} callFrom='explorer' key={index}/>
+             ))
+          ) : (
+            <h2>❌ 404: No photos to show </h2>
+          )}
         </div>
       </div>
     </>
