@@ -23,7 +23,7 @@ export const homeImg = [
   {
     src: "assets/homePics/8.png",
   },
-  {
-    src: "assets/homePics/9.png",
-  },
+  // {
+  //   src: "assets/homePics/9.png",
+  // },
 ];
