@@ -2,9 +2,12 @@ import "./Home.css";
 import { Button, ImageList, ImageListItem } from "@mui/material";
 import { homeImg } from "../../resources/homeImg";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 const Home = () => {
   const width = window.innerWidth;
+
+  
 
   return (
     <>
@@ -27,15 +30,16 @@ const Home = () => {
         <div className="imageList">
           <ImageList
             sx={
-              width > 800
+              (width > 800)
                 ? { width: 800, height: 850 }
                 : { width: 400, height: 600 }
             }
-            cols={width > 858 ? 3 : 2}
+            cols={width > 858 ? 4 : 2}
             rowHeight={200}
+            style={{ gap:'1rem'}}
           >
             {homeImg.map((item) => (
-              <ImageListItem key={item.id}>
+              <ImageListItem key={item.id} style={{ alignContent:'flex-start'}}>
                 {console.log(item)}
                 <img src={`${item.src}`} loading="lazy" />
               </ImageListItem>

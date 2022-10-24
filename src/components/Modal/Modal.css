@@ -22,12 +22,12 @@
     padding: 1rem;
   }
   
-  .modalContainer .title {
+  .modalContainer .h1-modal{
     display: inline-block;
     text-align: center;
   }
 
-  .title h1 {
+  .h1-modal {
     color: black;
   }
   
@@ -43,6 +43,17 @@
     cursor: pointer;
   }
   
+  .title {
+    text-align: center;
+  }
+
+  .input-modal {
+    margin: 0 1rem;
+    max-width: 150px;
+    border:none;
+    border-bottom: 1px solid black; 
+  }
+
   .modalContainer .body {
     /* flex: 50%; */
     display: flex;
@@ -83,12 +94,12 @@
       max-height: 500px;
     }
     
-    .modalContainer .title {
+    .modalContainer .h1-modal {
       display: inline-block;
       text-align: center;
     }
   
-    h1 {
+    .h1-modal {
       color: black;
       font-size: 2rem;
     }
@@ -137,9 +148,23 @@
 
   }
 
+  @media(max-width: 480px) {
+    .input-modal {
+      margin: 0 .5rem;
+      max-width: 120px;
+    }
+  }
+
   @media(max-width: 350px) {
-    h1 {
+    body {
+      padding: 0;
+    }
+    .h1-modal {
       color: black;
       font-size: 1.5rem;
+    }
+    .input-modal {
+      margin: 0 .5rem;
+      max-width: 80px;
     }
   }

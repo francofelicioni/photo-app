@@ -123,15 +123,17 @@
     margin: 0 auto;
     width: 60%;
   }
-  .h2-title {
-    display: none;
+
+  .searchBar-explorer {
+    padding: 0 .5rem;
+    gap:1rem
   }
 
   .search-container {
     width: 275px;
   }
 
-  h2 {
+  .h2-title {
     font-size: 1rem;
   }
 
@@ -156,10 +158,10 @@
 
 @media (max-width: 450px) {
 
-  .searchBar-explorer {
+  /* .searchBar-explorer {
     padding: 0 .5rem;
     gap:1rem
-  }
+  } */
 
   .select {
     font-size: 15px;

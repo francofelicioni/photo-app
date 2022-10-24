@@ -18,7 +18,8 @@ const Gallery = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [orderBy, setOrderBy] = useState("");
   const favourites = useSelector((state) => state.favourite);
-  const width = window.innerWidth;
+  let width = window.innerWidth;
+
 
   useEffect(() => {
     setGallery(favourites);
@@ -72,7 +73,7 @@ const Gallery = () => {
     <>
       <div className="searchBar-gallery">
         <div className="searchBar__h2-select">
-        <h2 className="h2-title">{width > 850 ? 'Gallery photos' : 'Gallery' }</h2>
+        <h2 className="h2-title-gallery">{(width > 1000) ? 'Gallery photos' : 'Gallery' }</h2>
           <select
             className="select"
             defaultValue={"date"}
@@ -90,13 +91,13 @@ const Gallery = () => {
             <input
               className="search-input"
               type="text"
-              placeholder="Search by descrptions"
+              placeholder={width>850 ? "Search by descrptions" : "Search"}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
         </div>
         <Link to="/explorer" style={{display:'flex', textDecoration:'none', gap:'.5rem', alignItems:'center'}}>
-        <h2 className="h2-title">{width > 1000 ? 'Go to explorer' : 'Explorer' }</h2>
+        <h2 className="h2-title-gallery">{width > 1000 ? 'Go to explorer' : 'Explorer' }</h2>
           <ImageSearchIcon
             style={{ width: 40, height: 40, color: "77AD78" }}
             className="search-icon"

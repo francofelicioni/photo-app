@@ -31,7 +31,7 @@ const Explorer = () => {
   return (
     <>
       <div className="searchBar-explorer">
-        <h2 className="h2-title">{width > 800 ? 'Explore photos' : 'Explore' }</h2>
+        <h2 className="h2-title">{width > 1000 ? 'Explore photos' : 'Explore' }</h2>
         <div className="search-container">
           <SearchIcon
             style={{ color: "77AD78" }}
@@ -39,13 +39,13 @@ const Explorer = () => {
           <input
             className="search-container__input"
             type="text"
-            placeholder="Search anything"
+            placeholder={width > 756 ? "Search anything" : "Search"}
             onKeyUp={(e) => setValue(e.target.value)}
           />
         </div>
         <Link to="/my_photos" style={{display:'flex', textDecoration:'none', gap:'.5rem', alignItems:'center'}}>
           {" "}
-          <h2 className="h2-title">{width > 800 ? 'Go to gallery' : 'Gallery' }</h2>
+          <h2 className="h2-title">{width > '1000' ? 'Go to gallery' : 'Gallery' }</h2>
           <CollectionsIcon
             style={{ height: 35, width: 35, color: "77AD78" }}
           />{" "}

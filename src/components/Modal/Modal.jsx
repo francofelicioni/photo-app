@@ -34,12 +34,13 @@ const Modal = ({ photo, closeModal }) => {
             <button onClick={() => closeModal(false)}>x</button>
           </div>
           <div className="title">
-            <h1>Photo Information:</h1>
+            <h1 className="h1-modal">Photo Information:</h1>
           </div>
           <div className="body">
             <p>
               Full description:
               <input
+                className="input-modal"
                 name="description"
                 type="text"
                 placeholder={
