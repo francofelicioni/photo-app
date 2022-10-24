@@ -72,7 +72,6 @@ const Modal = ({ photo, closeModal }) => {
               onClick={() => {
                 closeModal(false);
               }}
-              id="cancelBtn"
             >
               Close
             </button>

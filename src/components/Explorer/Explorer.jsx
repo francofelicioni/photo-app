@@ -22,6 +22,7 @@ const Explorer = () => {
   const [value, setValue] = useState("");
   const dispatch = useDispatch();
   const photoDataResult = useSelector(selectPhotos);
+  const width = window.innerWidth;
 
   useEffect (()=> {
     dispatch(getPhotos({value: value}));
@@ -29,8 +30,8 @@ const Explorer = () => {
   
   return (
     <>
-      <div className="searchBar">
-        <h2>Explore photos</h2>
+      <div className="searchBar-explorer">
+        <h2 className="h2-title">{width > 800 ? 'Explore photos' : 'Explore' }</h2>
         <div className="search-container">
           <SearchIcon
             style={{ color: "77AD78" }}
@@ -42,8 +43,9 @@ const Explorer = () => {
             onKeyUp={(e) => setValue(e.target.value)}
           />
         </div>
-        <Link to="/my_photos">
+        <Link to="/my_photos" style={{display:'flex', textDecoration:'none', gap:'.5rem', alignItems:'center'}}>
           {" "}
+          <h2 className="h2-title">{width > 800 ? 'Go to gallery' : 'Gallery' }</h2>
           <CollectionsIcon
             style={{ height: 35, width: 35, color: "77AD78" }}
           />{" "}

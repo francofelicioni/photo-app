@@ -29,9 +29,13 @@ span {
   font-family: monospace;
   white-space: nowrap;
   border-right: 4px solid;
-  width: 61ch;
-  animation: typing 6s steps(61), blink 0.6s infinite step-end alternate;
+  width: 55ch;
+  animation: typing 6s steps(55), blink 0.6s infinite step-end alternate;
   overflow: hidden;
+}
+
+.home-text-responsive{
+  display: none;
 }
 
 @keyframes typing {
@@ -85,12 +89,12 @@ span {
 
 @media (max-width: 768px) {
   .home {
-    display: flex;
+    /* display: flex;
     justify-content: flex-start;
     flex-direction: column;
-    margin: 0 2rem;
-    width: 100%;
-    height: 100vh;
+    margin: 0 2rem; */
+    /* width: 100%; */
+    /* height: 100vh; */
   }
 
   .home-text {
@@ -99,5 +103,72 @@ span {
 
   .h1-title {
     font-size: 1.5rem;
+  }
+
+  .home-text-responsive{
+    display: inline-block;
+  }
+
+  span {
+    font-family: "PT Sans", sans-serif;
+    font-size: 1.5rem;
+    /* width: 70%; */
+    padding: 0.2rem 0;
+    display: block;
+    font-family: monospace;
+    white-space: nowrap;
+    border-right: 4px solid;
+    width: 29ch;
+    animation: typing 6s steps(29), blink 0.6s infinite step-end alternate;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 468px) {
+
+  .h1-title {
+    font-size: 1.2rem;
+  }
+
+  .buttons-container {
+    margin: 2rem 0 3rem 0;
+    display: flex;
+    gap: 1rem;
+    text-decoration: none;
+  }
+
+  .btn-explorer {
+    padding: 0.3rem 0.4rem;
+    line-height: 1rem;
+  }
+  
+  .btn-favourites {
+    padding: 0.3rem 0.4rem;
+    line-height: 1rem;
+  }
+}
+
+@media (max-width: 326px) {
+
+  .buttons-container {
+    margin: 2rem 0 3rem 0;
+    /* display: flex; */
+    flex-direction: column;
+    /* gap: 2rem; */
+    text-decoration: none;
+  }
+
+  .btn-explorer {
+    padding: 0.5rem 0.8rem;
+    line-height: 1rem;
+  }
+  
+  .btn-favourites {
+    padding: 0.5rem 0.5rem;
+    line-height: 1rem;
+  }
+  
+  .home-text-responsive{
+    display: none;
   }
 }
