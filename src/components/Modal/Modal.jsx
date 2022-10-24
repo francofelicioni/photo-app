@@ -6,24 +6,24 @@ import { useDispatch } from "react-redux";
 import { saveAs } from "file-saver";
 import { useEffect, useState } from "react";
 
-
-
-const Modal = ({ photo, downloadLink, closeModal }) => {
+const Modal = ({ photo, closeModal }) => {
   const [downloadUrl, setDownloadUrl] = useState("");
   const [openEdit, setOpenEdit] = useState(false);
-  // const [url, setUrl] = useState(photo.photo.links);
+  const [description, setDescription] = useState('');
 
   const dispatch = useDispatch();
 
-  // const urlPhoto=photo.photo.links;
+  useEffect(() => {
+    setDescription(photo.photo.description);
+  }, [photo.photo]);
 
   const downloadPhoto = (id) => {
     saveAs(photo.photo.img, `${id}.jpg`);
   };
 
-  const handleEdit = (photo) => {
-    // dispatch(editDescription(photo));
-    console.log("handleEdit", photo);
+  const handleEdit = (e) => {
+    const desc = e.target.value;
+    dispatch(editDescription({ id: photo.photo.id, desc }));
   };
 
   return (
@@ -39,16 +39,24 @@ const Modal = ({ photo, downloadLink, closeModal }) => {
           <div className="body">
             <p>
               Full description:
-              {photo.photo.description
-                ? photo.photo.description
-                : " No description"}{" "}
-              <EditIcon onClick={handleEdit(photo.photo.id)} style={{cursor: 'pointer'}}  />
+              <input
+                name="description"
+                type="text"
+                placeholder={
+                  photo.photo.description
+                    ? photo.photo.description
+                    : " No description"
+                }
+                onChange={handleEdit}
+                value={description}
+              ></input>
+              <EditIcon style={{ cursor: "pointer" }} />
             </p>
             <p>Width: {photo.photo.width}</p>
             <p>Height:{photo.photo.height}</p>
             <p>Likes: {photo.photo.likes}</p>
             <p>Date saved: {photo.photo.dateImported}</p>
-            <a
+            <p
               style={{
                 cursor: "pointer",
                 textDecoration: "none",
@@ -57,7 +65,7 @@ const Modal = ({ photo, downloadLink, closeModal }) => {
               onClick={() => downloadPhoto(photo.photo.description)}
             >
               Download ⬇️
-            </a>
+            </p>
           </div>
           <div className="footer">
             <button
@@ -76,15 +84,3 @@ const Modal = ({ photo, downloadLink, closeModal }) => {
 };
 
 export default Modal;
-
-// Photo.propTypes = {
-//   id: PropTypes.string,
-//   description: PropTypes.string,
-//   urlfull: PropTypes.string,
-//   urlregular: PropTypes.string,
-//   urlthumb: PropTypes.string,
-//   likes: PropTypes.number,
-//   width: PropTypes.number,
-//   height: PropTypes.number,
-//   date: PropTypes.string
-// }

@@ -19,9 +19,6 @@ const Gallery = () => {
   const [orderBy, setOrderBy] = useState("");
   const favourites = useSelector((state) => state.favourite);
 
-  console.log("favourites", favourites);
-  console.log("gallery", gallery);
-
   useEffect(() => {
     setGallery(favourites);
   }, [favourites]);
@@ -49,7 +46,6 @@ const Gallery = () => {
     } else {
       filteredPhotos = favourites;
     }
-    console.log(filteredPhotos);
     const arrOrderedPhotos = [...filteredPhotos];
 
     switch (orderBy) {

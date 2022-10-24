@@ -12,7 +12,6 @@ import { useDispatch } from "react-redux";
 import {
   addFavourite,
   deleteFavourite,
-  // editDescription,
 } from "../../features/favourite/favouriteSlice";
 import Modal from "../Modal/Modal";
 

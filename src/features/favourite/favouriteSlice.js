@@ -19,14 +19,19 @@ export const favouriteSlice = createSlice({
       return newState;
     },
     editDescription: (state, action) => {
+
+      // console.log(state)
+      console.log('state', action.payload)
+      console.log('payload', action.payload)
       const copyStatePhotos = [...state];
       const editIndex = copyStatePhotos.findIndex(
         (photo) => photo.id === action.payload.id
       );
       const newPhoto = {
               ...copyStatePhotos[editIndex],
-              description: action.payload.change,
+              description: action.payload.desc,
       };
+      {console.log('CS', copyStatePhotos)}
       copyStatePhotos[editIndex] = newPhoto;
       state = copyStatePhotos;
       localStorage.setItem("collection", JSON.stringify(state));

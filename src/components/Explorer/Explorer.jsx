@@ -34,7 +34,6 @@ const Explorer = () => {
         <div className="search-container">
           <SearchIcon
             style={{ color: "77AD78" }}
-            // onClick={() => searchResults()}
           />
           <input
             className="search-container__input"

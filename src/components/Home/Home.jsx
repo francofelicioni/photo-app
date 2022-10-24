@@ -4,16 +4,19 @@ import { homeImg } from "../../resources/homeImg";
 import { Link } from 'react-router-dom';
 
 const Home = () => {
+
+  const width = window.innerWidth;
+  const height = window.innerHeight;
   
   return (
     <>
       <div className="home">
-        <h1>WELCOME TO PHGRM.</h1>
+        <h1 className='h1-title'>WELCOME TO PHGRM.</h1>
         <div className='home-text'>
           <span> Explore images from unsplash. 
-          Save, download and more! Enjoy.s</span> 
+          Save, download and more! Enjoy</span> 
         </div>
-        <ImageList sx={{ width: 800, height: 850 }} cols={3} rowHeight={200}>
+        <ImageList  sx={(width > 758) ? { width: 800, height: 850 } : { width: 400, height: 600 } } cols={(width > 758) ? 3 : 2} rowHeight={200} className='imageList'>
           {homeImg.map((item) => (          
             <ImageListItem key={item.src}>
               <img
