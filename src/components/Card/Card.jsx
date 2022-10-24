@@ -64,7 +64,7 @@ const Card = (photo) => {
             />
           </div>
         </div>
-        {openModal && <Modal photo={photo} downloadLink={photo.photo.links} closeModal={setOpenModal} />}
+        {openModal && <Modal photo={photo} closeModal={setOpenModal} />}
       </>
     );
   } else {

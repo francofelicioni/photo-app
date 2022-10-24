@@ -6,13 +6,19 @@ import { useDispatch } from "react-redux";
 import { saveAs } from "file-saver";
 import { useEffect, useState } from "react";
 
+
+
 const Modal = ({ photo, downloadLink, closeModal }) => {
   const [downloadUrl, setDownloadUrl] = useState("");
+  const [openEdit, setOpenEdit] = useState(false);
+  // const [url, setUrl] = useState(photo.photo.links);
 
   const dispatch = useDispatch();
 
-  const downloadPhoto = (url, id) => {
-    saveAs(url, `${id}.jpg`);
+  // const urlPhoto=photo.photo.links;
+
+  const downloadPhoto = (id) => {
+    saveAs(photo.photo.img, `${id}.jpg`);
   };
 
   const handleEdit = (photo) => {
@@ -36,7 +42,7 @@ const Modal = ({ photo, downloadLink, closeModal }) => {
               {photo.photo.description
                 ? photo.photo.description
                 : " No description"}{" "}
-              <EditIcon onClick={handleEdit(photo.photo)} />
+              <EditIcon onClick={handleEdit(photo.photo.id)} style={{cursor: 'pointer'}}  />
             </p>
             <p>Width: {photo.photo.width}</p>
             <p>Height:{photo.photo.height}</p>
@@ -48,7 +54,7 @@ const Modal = ({ photo, downloadLink, closeModal }) => {
                 textDecoration: "none",
                 color: "black",
               }}
-              onClick={() => downloadPhoto(photo.photo.links, photo.photo.id)}
+              onClick={() => downloadPhoto(photo.photo.description)}
             >
               Download ⬇️
             </a>
@@ -70,3 +76,15 @@ const Modal = ({ photo, downloadLink, closeModal }) => {
 };
 
 export default Modal;
+
+// Photo.propTypes = {
+//   id: PropTypes.string,
+//   description: PropTypes.string,
+//   urlfull: PropTypes.string,
+//   urlregular: PropTypes.string,
+//   urlthumb: PropTypes.string,
+//   likes: PropTypes.number,
+//   width: PropTypes.number,
+//   height: PropTypes.number,
+//   date: PropTypes.string
+// }
