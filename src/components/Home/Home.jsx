@@ -7,8 +7,6 @@ import { useEffect } from "react";
 const Home = () => {
   const width = window.innerWidth;
 
-  
-
   return (
     <>
       <div className="home">
@@ -31,12 +29,12 @@ const Home = () => {
           <ImageList
             sx={
               (width > 800)
-                ? { width: 800, height: 850 }
-                : { width: 400, height: 600 }
+                ? { width: 800, height: 500 }
+                : { width: 350, height: 630 }
             }
             cols={width > 858 ? 4 : 2}
             rowHeight={200}
-            style={{ gap:'1rem'}}
+            style={{ gap:'1rem', overflowY: 'hidden'}}
           >
             {homeImg.map((item) => (
               <ImageListItem key={item.id} style={{ alignContent:'flex-start'}}>
