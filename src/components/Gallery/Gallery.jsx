@@ -111,7 +111,7 @@ const Gallery = () => {
               <Card photo={photo} callFrom="gallery" key={index} />
             ))
           ) : (
-            <h2>No photos in favourites yet</h2>
+            <h2>No photos in favourites!</h2>
           )}
         </div>
       </div>

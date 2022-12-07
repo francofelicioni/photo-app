@@ -7,8 +7,8 @@ import { saveAs } from "file-saver";
 import { useEffect, useState } from "react";
 
 const Modal = ({ photo, closeModal }) => {
-  const [downloadUrl, setDownloadUrl] = useState("");
-  const [openEdit, setOpenEdit] = useState(false);
+  // const [downloadUrl, setDownloadUrl] = useState("");
+  // const [openEdit, setOpenEdit] = useState(false);
   const [description, setDescription] = useState('');
 
   const dispatch = useDispatch();
@@ -46,11 +46,12 @@ const Modal = ({ photo, closeModal }) => {
                 placeholder={
                   photo.photo.description
                     ? photo.photo.description
-                    : " No description"
+                    : "Add a description"
                 }
                 onChange={handleEdit}
                 value={description}
-              ></input>
+                style={{padding: '5px 0'}}
+              />
               <EditIcon style={{ cursor: "pointer" }} />
             </p>
             <p>Width: {photo.photo.width}</p>

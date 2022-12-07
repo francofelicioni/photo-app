@@ -49,13 +49,16 @@
 
   .input-modal {
     margin: 0 1rem;
-    max-width: 150px;
+    max-width: 200px;
     border:none;
-    border-bottom: 1px solid black; 
+    border-bottom: 1px solid black;
+  }
+
+  .input-modal:focus {
+    outline: none;
   }
 
   .modalContainer .body {
-    /* flex: 50%; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -117,7 +120,6 @@
     }
     
     .modalContainer .body {
-      /* flex: 50%; */
       display: flex;
       flex-direction: column;
       justify-content: center;

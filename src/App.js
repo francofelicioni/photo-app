@@ -6,13 +6,9 @@ import Header from "./components/Header/Header";
 import Explorer from "./components/Explorer/Explorer";
 import Gallery from "./components/Gallery/Gallery";
 import Home from "./components/Home/Home";
-import { useEffect } from "react";
 
 function App() {
 
-  const params = useParams ();
-
-  console.log(params)
 
   return (
     <>

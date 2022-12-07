@@ -25,18 +25,20 @@ export const searchSlice = createSlice({
   name: "search",
   initialState: {
     photos: [],
-    isLoading: false,
+    status: 'idle',
   },
   extraReducers: {
     [getPhotos.pending] : (state) => {
-        state.isLoading = true;
+        state.status = 'pending';
+        console.log('Loading')
     },
     [getPhotos.fulfilled] : (state, action) => {
         state.photos = action.payload;
-        state.isLoading = false;
+        state.status = 'fulfilled';
     },
     [getPhotos.rejected]: (state) => {
-        state.isLoading = false;
+        state.status = 'rejected';
+        console.log ('Error while fetching data from API ')
     }
   },
 });

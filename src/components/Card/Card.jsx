@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Card.css";
 
 //Icons from MUI
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
+// import EditIcon from "@mui/icons-material/Edit";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import InfoIcon from "@mui/icons-material/Info";
 
 //Redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addFavourite,
   deleteFavourite,
@@ -17,11 +18,18 @@ import Modal from "../Modal/Modal";
 
 const Card = (photo) => {
   const dispatch = useDispatch();
-
+  const favourites = useSelector((state) => state.favourite);
   const [openModal, setOpenModal] = useState(false);
 
   const handleSave = (data) => {
-    console.log("data", data);
+    let sw = false;
+
+    for (let index = 0; index < favourites.length; index++) {
+      if (favourites[index].id === data.photo.id) {
+        sw = true;
+      }
+    }
+
     const dataToSave = {
       id: data.photo.id,
       description: data.photo.description,
@@ -33,12 +41,21 @@ const Card = (photo) => {
       width: data.photo.width,
       dateImported: new Date(data.dateImported).toLocaleDateString("es"),
     };
-    dispatch(addFavourite(dataToSave));
-    console.log("dataToSave", dataToSave);
+
+    if (sw === false) {
+      dispatch(addFavourite(dataToSave));
+    }
   };
 
   const handleDelete = (photo) => {
     dispatch(deleteFavourite(photo.photo.id));
+  };
+
+  const changeIcon = (e) => {
+    console.log("event", e);
+    e.target.style.color = "#ED5A6B";
+    e.target.style.cursor = "default";
+    e.target.style.transition = "all ease 1s";
   };
 
   //Gallery Render
@@ -67,7 +84,7 @@ const Card = (photo) => {
       </>
     );
   } else {
-  //Explorer Render
+    //Explorer Render
     return (
       <>
         <div className="grid-img-container" key={photo.photo.id}>
@@ -82,10 +99,20 @@ const Card = (photo) => {
                 ? photo.photo.description
                 : photo.photo.alt_description}{" "}
             </p>
-            <FavoriteIcon
-              style={{ color: "FFFFFF", cursor: "pointer" }}
-              onClick={() => handleSave(photo, photo.photo.id)}
-            />
+
+            <div>
+              {photo.phRepeat === true ? (
+                <FavoriteIcon style={{ color: "#ED5A6B" }} />
+              ) : (
+                <FavoriteIcon
+                  style={{ color: "white", cursor: "pointer" }}
+                  onClick={(e) => {
+                    handleSave(photo, photo.photo.id);
+                    changeIcon(e);
+                  }}
+                />
+              )}
+            </div>
           </div>
         </div>
       </>

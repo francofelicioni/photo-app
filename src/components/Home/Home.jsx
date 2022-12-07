@@ -38,7 +38,6 @@ const Home = () => {
           >
             {homeImg.map((item) => (
               <ImageListItem key={item.id} style={{ alignContent:'flex-start'}}>
-                {console.log(item)}
                 <img src={`${item.src}`} loading="lazy" />
               </ImageListItem>
             ))}
