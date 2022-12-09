@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Card.css";
 
 //Icons from MUI
 import DeleteIcon from "@mui/icons-material/Delete";
-// import EditIcon from "@mui/icons-material/Edit";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import InfoIcon from "@mui/icons-material/Info";
 
 //Redux
@@ -52,7 +50,6 @@ const Card = (photo) => {
   };
 
   const changeIcon = (e) => {
-    console.log("event", e);
     e.target.style.color = "#ED5A6B";
     e.target.style.cursor = "default";
     e.target.style.transition = "all ease 1s";

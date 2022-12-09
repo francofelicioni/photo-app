@@ -13,7 +13,7 @@ export const favouriteSlice = createSlice({
       localStorage.setItem("collection", JSON.stringify(state));
     },
     deleteFavourite: (state, action) => {
-      const newState = state.filter((item) => action.payload != item.id);
+      const newState = state.filter((item) => action.payload !== item.id);
       localStorage.setItem("collection", JSON.stringify(newState));
       return newState;
     },

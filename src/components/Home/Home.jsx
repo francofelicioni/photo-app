@@ -1,8 +1,8 @@
 import "./Home.css";
-import { Button, ImageList, ImageListItem } from "@mui/material";
+import { ImageList, ImageListItem } from "@mui/material";
 import { homeImg } from "../../resources/homeImg";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+
 
 const Home = () => {
   const width = window.innerWidth;
@@ -38,7 +38,7 @@ const Home = () => {
           >
             {homeImg.map((item) => (
               <ImageListItem key={item.id} style={{ alignContent:'flex-start'}}>
-                <img src={`${item.src}`} loading="lazy" />
+                <img src={`${item.src}`} loading="lazy" alt="Home Images"/>
               </ImageListItem>
             ))}
           </ImageList>

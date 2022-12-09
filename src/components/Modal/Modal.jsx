@@ -55,7 +55,7 @@ const Modal = ({ photo, closeModal }) => {
               <EditIcon style={{ cursor: "pointer" }} />
             </p>
             <p>Width: {photo.photo.width}</p>
-            <p>Height:{photo.photo.height}</p>
+            <p>Height: {photo.photo.height}</p>
             <p>Likes: {photo.photo.likes}</p>
             <p>Date saved: {photo.photo.dateImported}</p>
             <p
